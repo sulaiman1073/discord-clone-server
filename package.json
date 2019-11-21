@@ -1,0 +1,179 @@
+{
+  "name": "discord-clone-server",
+  "version": "1.0.0",
+  "description": "Discord Clone Server",
+  "main": "index.js",
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "scripts": {
+    "menu": "ntl -d --exclude menu prettier unprettified",
+    "start": "cross-env NODE_ENV=development node ./src/index.js",
+    "devserver": "cross-env NODE_ENV=development nodemon ./src/index.js",
+    "production": "cross-env NODE_ENV=production node ./src/index.js",
+    "prettier": "prettier \"./src/**/*.+(js|json|yml|yaml|ts|tsx|md|mdx|graphql)\"",
+    "unprettified": "npm run prettier -- --list-different",
+    "format": "npm run prettier -- --write",
+    "lint": "eslint ./src/ -c ./.eslintrc --ext js",
+    "fix": "eslint ./src/ --fix",
+    "validate": "run-p lint unprettified",
+    "test": "cross-env NODE_ENV=testing jest --runInBand",
+    "test-watch": "cross-env NODE_ENV=testing jest --watch --runInBand",
+    "test-watchall": "cross-env NODE_ENV=testing jest --watchAll --runInBand",
+    "coverage": "cross-env NODE_ENV=testing jest --coverage",
+    "migrate-create": "node ./tools/migrate.js create",
+    "migrate-list": "node ./tools/migrate.js list",
+    "migrate-up": "node ./tools/migrate.js up",
+    "migrate-down": "node ./tools/migrate.js down",
+    "db-create": "node ./tools/createDb.js",
+    "db-drop": "node ./tools/dropDb.js",
+    "db-seed": "node ./src/database/seeds/index.js",
+    "redis-flush": "node ./tools/flushRedis.js",
+    "db-reset": "run-s migrate-down migrate-up redis-flush",
+    "db-reset2": "run-s db-reset db-seed",
+    "benchmark": "node ./tools/benchmark.js",
+    "clinic-doctor": "cross-env NODE_ENV=development clinic doctor -- node ./src/index.js",
+    "clinic-bubbleprof": "cross-env NODE_ENV=development clinic bubbleprof -- node ./src/index.js",
+    "clinic-flame": "cross-env NODE_ENV=development clinic flame -- node ./src/index.js",
+    "reset": "node ./tools/reset.js"
+  },
+  "ntl": {
+    "descriptions": {
+      "start": "Starts server in development mode",
+      "devserver": "Starts server in development mode and auto restarts at save",
+      "production": "Starts server in production mode",
+      "format": "Formats the code with prettier",
+      "lint": "Shows linting errors",
+      "fix": "Fixes linting errors",
+      "validate": "Formats the code and fixes linting errors",
+      "test": "Runs tests",
+      "test-watch": "Runs tests in watch mode",
+      "test-watchall": "Runs tests in watchAll mode",
+      "coverage": "Generates test coverage",
+      "migrate-create": "Creates a database migration",
+      "migrate-list": "Lists database migrations",
+      "migrate-up": "Migrates database up",
+      "migrate-down": "Migrates database down",
+      "db-create": "Creates database",
+      "db-drop": "Drops database",
+      "db-seed": "Seeds database",
+      "db-reset": "Resets database",
+      "db-reset2": "Resets and seeds database",
+      "benchmark": "Runs benchmarks",
+      "clinic-doctor": "Runs server with clinic doctor profiler",
+      "clinic-bubbleprof": "Runs server with clinic bubbleprof profiler",
+      "clinic-flame": "Runs server with clinic flame profiler",
+      "reset": "Deletes the public, logs, benchmarks results and coverage directories and resets postgresql, redis and rabbitmq"
+    }
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "verbose": true,
+    "watchPlugins": [
+      "jest-watch-typeahead/filename",
+      "jest-watch-typeahead/testname"
+    ],
+    "collectCoverageFrom": [
+      "<rootDir>/src/**/*.js"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "./src/**/*.{js}": [
+      "npm run format",
+      "npm run fix",
+      "cross-env NODE_ENV=testing jest --runInBand --findRelatedTests",
+      "git add"
+    ]
+  },
+  "dependencies": {
+    "amqplib": "^0.5.5",
+    "autocannon": "^4.1.0",
+    "aws-sdk": "^2.568.0",
+    "axios": "^0.19.0",
+    "bcryptjs": "^2.4.3",
+    "bluebird": "^3.5.5",
+    "bull": "^3.11.0",
+    "celebrate": "^10.0.1",
+    "chalk": "^2.4.2",
+    "clinic": "^4.1.0",
+    "connect-redis": "^3.4.2",
+    "cookie-parser": "^1.4.4",
+    "cors": "^2.8.5",
+    "cross-env": "^5.2.1",
+    "date-fns": "^1.30.1",
+    "dotenv": "^8.1.0",
+    "escape-html": "^1.0.3",
+    "express": "^4.17.1",
+    "express-session": "^1.16.2",
+    "express-ws": "^4.0.0",
+    "faker": "^4.1.0",
+    "fast-json-stringify": "^1.15.4",
+    "file-type": "^12.4.0",
+    "fs-extra": "^8.1.0",
+    "helmet": "^3.20.1",
+    "http-status": "^1.3.2",
+    "ioredis": "^4.14.0",
+    "jest": "^24.9.0",
+    "knex": "^0.19.3",
+    "l0gg3r": "^0.6.0",
+    "lodash": "^4.17.15",
+    "migrate": "^1.6.2",
+    "morgan": "^1.9.1",
+    "multer": "^1.4.2",
+    "nodemailer": "^6.3.0",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "pg": "^7.12.1",
+    "pg-error-codes": "^1.1.0",
+    "promise.allsettled": "^1.0.1",
+    "relative": "^3.0.2",
+    "response-time": "^2.3.2",
+    "rimraf": "^3.0.0",
+    "supertest": "^4.0.2",
+    "uuid": "^3.3.3",
+    "ws": "^7.2.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.1",
+    "@types/hapi__joi": "^15.0.3",
+    "@types/jest": "^24.0.18",
+    "@types/node": "^12.7.3",
+    "@types/supertest": "^2.0.8",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-config-prettier": "^6.1.0",
+    "eslint-plugin-eslint-comments": "^3.1.2",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jest": "^22.16.0",
+    "eslint-plugin-node": "^9.2.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "husky": "^3.0.5",
+    "jest-watch-typeahead": "^0.3.1",
+    "lint-staged": "^9.2.5",
+    "nodemon": "^1.19.1",
+    "npm-run-all": "^4.1.5",
+    "ntl": "^4.0.0",
+    "prettier": "^1.18.2"
+  },
+  "author": "sulaiman1073",
+  "license": "MIT",
+  "keywords": [
+    "discord",
+    "api"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sulaiman1073/nodejs-api-boilerplate.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sulaiman1073/nodejs-api-boilerplate/issues"
+  },
+  "homepage": "https://github.com/sulaiman1073/nodejs-api-boilerplate#readme"
+}

@@ -1,0 +1,21 @@
+# Project specific
+/node_modules/
+/public/
+/logs/
+/coverage/
+/benchmarks/results/
+.env
+.migrate
+
+# Other
+*.log
+.DS_Store
+*.sublime-project
+*.sublime-workspace
+.idea
+*.iml
+.vscode
+*.swp
+*.swo
+*~
+*.pyc

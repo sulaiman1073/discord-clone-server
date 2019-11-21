@@ -1,0 +1,40 @@
+{
+  "extends": [
+    "eslint:recommended",
+    "airbnb-base",
+    "plugin:eslint-comments/recommended",
+    "plugin:promise/recommended",
+    "plugin:jest/recommended",
+    "plugin:node/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "prettier",
+    "plugin:prettier/recommended"
+  ],
+  "env": {
+    "node": true,
+    "es6": true,
+    "jest": true
+  },
+  "plugins": [
+    "eslint-comments",
+    "promise",
+    "jest",
+    "node",
+    "import",
+    "prettier"
+  ],
+  "rules": {
+    "semi": 0,
+    "quotes": 0,
+    "strict": 0,
+    "no-process-exit": 0,
+    "consistent-return": 0,
+    "global-require": 0,
+    "no-plusplus": 0,
+    "no-restricted-syntax": 0,
+    "no-unused-vars": 1,
+    "eslint-comments/disable-enable-pair": 0,
+    "no-restricted-globals": 0
+  }
+}
