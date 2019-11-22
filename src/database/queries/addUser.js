@@ -6,8 +6,9 @@ module.exports = async (
   db = database
 ) => {
   try {
-    const response = (await db.query(
-      /* SQL */ `
+    const response = (
+      await db.query(
+        /* SQL */ `
     INSERT INTO
       users
         (
@@ -28,8 +29,9 @@ module.exports = async (
       email_verified AS "emailVerified",
       status AS "status",
       created_at AS "createdAt"`,
-      [username, discriminator, password, avatar, email]
-    )).rows[0];
+        [username, discriminator, password, avatar, email]
+      )
+    ).rows[0];
 
     if (!response) return null;
 

@@ -3,8 +3,9 @@ const createDatabaseError = require("../../helpers/createDatabaseError");
 
 module.exports = async ({ message, channelId, userId }, db = database) => {
   try {
-    const response = (await db.query(
-      /* SQL */ `
+    const response = (
+      await db.query(
+        /* SQL */ `
     INSERT INTO
       messages
         (
@@ -40,8 +41,9 @@ module.exports = async ({ message, channelId, userId }, db = database) => {
           channels.id = $2
       ) AS "guildId"
       `,
-      [message, channelId, userId]
-    )).rows[0];
+        [message, channelId, userId]
+      )
+    ).rows[0];
 
     if (!response) return null;
 

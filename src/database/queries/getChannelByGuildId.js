@@ -3,8 +3,9 @@ const createDatabaseError = require("../../helpers/createDatabaseError");
 
 module.exports = async ({ guildId }, db = database) => {
   try {
-    const response = (await db.query(
-      /* SQL */ `
+    const response = (
+      await db.query(
+        /* SQL */ `
     SELECT
       channels.id,
       channels.name,
@@ -14,8 +15,9 @@ module.exports = async ({ guildId }, db = database) => {
       channels
     WHERE
       channels.guild_id = $1`,
-      [guildId]
-    )).rows[0];
+        [guildId]
+      )
+    ).rows[0];
 
     if (!response) return null;
 

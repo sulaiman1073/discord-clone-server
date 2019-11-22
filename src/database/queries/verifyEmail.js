@@ -2,8 +2,9 @@ const createDatabaseError = require("../../helpers/createDatabaseError");
 
 module.exports = async (db, { email, verificationToken }) => {
   try {
-    const response = (await db.query(
-      /* SQL */ `
+    const response = (
+      await db.query(
+        /* SQL */ `
     UPDATE
       users
     SET
@@ -30,8 +31,9 @@ module.exports = async (db, { email, verificationToken }) => {
       avatar AS "avatar",
       email_verified AS "emailVerified",
       created_at AS "joinDate"`,
-      [email, verificationToken]
-    )).rows[0];
+        [email, verificationToken]
+      )
+    ).rows[0];
 
     if (!response) return null;
 

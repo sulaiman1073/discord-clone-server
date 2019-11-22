@@ -1,7 +1,6 @@
 const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 const { celebrate, Joi } = require("celebrate");
-const pgErrorCodes = require("pg-error-codes");
 const { sendRegistrationEmail } = require("../../../config/jobs");
 const addUser = require("../../../database/queries/addUser");
 const config = require("../../../config");

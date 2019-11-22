@@ -7,10 +7,8 @@ const session = require("express-session");
 const RedisStore = require("connect-redis");
 const responseTime = require("response-time");
 const config = require("./config");
-
 const requestId = require("./helpers/middleware/requestId");
 const passport = require("./config/passport");
-
 const errorHandler = require("./helpers/middleware/errorHandler");
 const requestLogger = require("./helpers/middleware/requestLogger");
 const webSockets = require("./webSockets");
@@ -19,7 +17,6 @@ let redis;
 
 if (config.mode !== "testing") {
   redis = require("./config/redis");
-  // require("./config/jobs");
 }
 
 const app = express();

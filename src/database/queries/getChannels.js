@@ -3,8 +3,9 @@ const createDatabaseError = require("../../helpers/createDatabaseError");
 
 module.exports = async ({ guildId, userId }, db = database) => {
   try {
-    const response = (await db.query(
-      /* SQL */ `
+    const response = (
+      await db.query(
+        /* SQL */ `
     SELECT
       channels.id,
       channels.name,
@@ -46,8 +47,9 @@ module.exports = async ({ guildId, userId }, db = database) => {
           guilds.id = channels.guild_id
           AND guilds.owner_id = $2
       )`,
-      [guildId, userId]
-    )).rows;
+        [guildId, userId]
+      )
+    ).rows;
 
     if (response.length === 0) return null;
 

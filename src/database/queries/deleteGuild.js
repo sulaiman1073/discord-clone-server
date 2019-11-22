@@ -3,8 +3,9 @@ const createDatabaseError = require("../../helpers/createDatabaseError");
 
 module.exports = async ({ guildId, userId }, db = database) => {
   try {
-    const response = (await db.query(
-      /* SQL */ `
+    const response = (
+      await db.query(
+        /* SQL */ `
     DELETE FROM
       guilds
     WHERE
@@ -12,8 +13,9 @@ module.exports = async ({ guildId, userId }, db = database) => {
       AND guilds.owner_id = $2
     RETURNING
       id AS "guildId"`,
-      [guildId, userId]
-    )).rows[0];
+        [guildId, userId]
+      )
+    ).rows[0];
 
     if (!response) return null;
 

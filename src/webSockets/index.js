@@ -17,11 +17,6 @@ module.exports = (app, wss) => {
     const messageType = parsedMessage.type;
     const messagePayload = parsedMessage.payload;
 
-    console.log("===");
-    console.log("TYPE: ", messageType);
-    console.log("PAYLOAD: ", messagePayload);
-    console.log("===");
-
     sender(wss, messageType, messagePayload);
   });
 

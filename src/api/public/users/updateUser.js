@@ -1,6 +1,5 @@
 const router = require("express").Router();
 const { celebrate, Joi } = require("celebrate");
-const _ = require("lodash");
 const bcrypt = require("bcryptjs");
 const fileType = require("file-type");
 const authenticateUser = require("../../../helpers/middleware/authenticateUser");

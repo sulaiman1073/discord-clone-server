@@ -5,7 +5,6 @@ const { USER_UPDATE } = require("../config/constants");
 
 const closeHandler = (ws, userId) => {
   ws.on("close", async () => {
-    console.log("CLOSING SOCKET");
     const memberServers = {};
 
     for await (const gid of state[userId].guilds) {

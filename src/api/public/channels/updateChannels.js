@@ -96,22 +96,7 @@ router.put(
             client
           );
 
-          // console.log("DELETED CHANNEL", deletedChannel);
-
-          // if (!deletedChannel) throw new ApiError();
-        }
-      }
-
-      if (addedChannels) {
-        for await (const { name, position } of addedChannels) {
-          const newChannel = await addChannel(
-            { name, position, guildId },
-            client
-          );
-
-          // console.log("ADDED CHANNEL", newChannel);
-
-          // if (!newChannel) throw new ApiError();
+          if (!deletedChannel) throw new ApiError();
         }
       }
 
@@ -122,9 +107,18 @@ router.put(
             client
           );
 
-          // console.log("UPDATED CHANNEL", updatedChannel);
+          if (!updatedChannel) throw new ApiError();
+        }
+      }
 
-          // if (!updatedChannel) throw new ApiError();
+      if (addedChannels) {
+        for await (const { name, position } of addedChannels) {
+          const newChannel = await addChannel(
+            { name, position, guildId },
+            client
+          );
+
+          if (!newChannel) throw new ApiError();
         }
       }
 

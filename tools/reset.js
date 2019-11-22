@@ -12,10 +12,6 @@ const reset = async () => {
   const publicDirectory = resolve(process.cwd(), "./public");
   const logsDirectory = resolve(process.cwd(), "./logs");
   const coverageDirectory = resolve(process.cwd(), "./coverage");
-  const benchmarksResultsDirectory = resolve(
-    process.cwd(),
-    "./benchmarks/results/"
-  );
 
   await redis.flushall();
   await resetDb();
@@ -24,7 +20,6 @@ const reset = async () => {
   rimraf.sync(publicDirectory);
   rimraf.sync(logsDirectory);
   rimraf.sync(coverageDirectory);
-  rimraf.sync(benchmarksResultsDirectory);
 
   console.log("Resetted server.");
 };

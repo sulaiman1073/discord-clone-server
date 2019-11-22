@@ -8,6 +8,3 @@ if (!existsSync(resolve(process.cwd(), "./public"))) {
 if (!existsSync(config.logsPathDev)) {
   mkdirSync(config.logsPathDev, { recursive: true });
 }
-if (!existsSync(config.uploadsPathDev)) {
-  mkdirSync(config.uploadsPathDev, { recursive: true });
-}

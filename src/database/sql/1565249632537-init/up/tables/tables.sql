@@ -37,7 +37,7 @@ CREATE TABLE channels (
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   CONSTRAINT name_length CHECK(length(name) > 1 AND length(name) < 100),
   CONSTRAINT topic_length CHECK(length(topic) <= 1024),
-  CONSTRAINT unique_positions UNIQUE (guild_id, position) DEFERRABLE INITIALLY IMMEDIATE
+  CONSTRAINT unique_positions UNIQUE (guild_id, position) DEFERRABLE INITIALLY DEFERRED
 );
 
 CREATE TABLE messages (

@@ -3,8 +3,9 @@ const createDatabaseError = require("../../helpers/createDatabaseError");
 
 module.exports = async ({ name, position, topic, guildId }, db = database) => {
   try {
-    const response = (await db.query(
-      /* SQL */ `
+    const response = (
+      await db.query(
+        /* SQL */ `
     INSERT INTO
       channels
         (
@@ -22,8 +23,9 @@ module.exports = async ({ name, position, topic, guildId }, db = database) => {
       topic AS "topic",
       guild_id AS "guildId",
       created_at AS "createdAt"`,
-      [name, position, topic, guildId]
-    )).rows[0];
+        [name, position, topic, guildId]
+      )
+    ).rows[0];
 
     if (!response) return null;
 

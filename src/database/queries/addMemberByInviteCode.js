@@ -3,8 +3,9 @@ const createDatabaseError = require("../../helpers/createDatabaseError");
 
 module.exports = async ({ userId, inviteCode }, db = database) => {
   try {
-    const response = (await db.query(
-      /* SQL */ `
+    const response = (
+      await db.query(
+        /* SQL */ `
       INSERT INTO
       members
         (
@@ -27,8 +28,9 @@ module.exports = async ({ userId, inviteCode }, db = database) => {
       guild_id AS "guildId",
       user_id AS "userId",
       created_at AS "createdAt"`,
-      [userId, inviteCode]
-    )).rows[0];
+        [userId, inviteCode]
+      )
+    ).rows[0];
 
     if (!response) return null;
 

@@ -3,8 +3,9 @@ const createDatabaseError = require("../../helpers/createDatabaseError");
 
 module.exports = async ({ firstUser, secondUser }, db = database) => {
   try {
-    const response = (await db.query(
-      /* SQL */ `
+    const response = (
+      await db.query(
+        /* SQL */ `
     INSERT INTO
       friends
         (
@@ -17,8 +18,9 @@ module.exports = async ({ firstUser, secondUser }, db = database) => {
       first_user_id AS "firstUserId",
       second_user_id AS "secondUserId",
       created_at AS "createdAt"`,
-      [firstUser, secondUser]
-    )).rows[0];
+        [firstUser, secondUser]
+      )
+    ).rows[0];
 
     if (!response) return null;
 

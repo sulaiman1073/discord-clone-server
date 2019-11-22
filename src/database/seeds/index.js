@@ -1,15 +1,9 @@
-const faker = require("faker");
-const allSettled = require("promise.allsettled");
 const bcrypt = require("bcryptjs");
-const { format, parse } = require("date-fns");
 const database = require("../../config/database");
 const logger = require("../../config/logger");
 const addUser = require("../queries/addUser");
 const addGuild = require("../queries/addGuild");
 const addMember = require("../queries/addMember");
-const addChannel = require("../queries/addChannel");
-const addMessage = require("../queries/addMessage");
-const { defaultGuild } = require("../../config");
 
 async function seedDb() {
   logger.debug("Seeding database...");
@@ -126,23 +120,6 @@ async function seedDb() {
       },
       client
     );
-
-    const arr = [];
-
-    for (let z = 6; z < 100; z++) {
-      arr.push(z);
-    }
-
-    for await (const i of arr) {
-      await addUser(
-        {
-          username: `user${i}`,
-          password,
-          email: `abc${i}@gmail.com`
-        },
-        client
-      );
-    }
 
     await client.query("COMMIT");
 
