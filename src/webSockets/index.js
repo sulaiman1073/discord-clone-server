@@ -54,14 +54,13 @@ module.exports = (app, wss) => {
         if (client.isAlive === false) return client.terminate();
 
         client.isAlive = false;
+
         if (client.readyState === 1) {
           client.send(
             JSON.stringify({
               type: PING
             })
           );
-        } else {
-          client.terminate();
         }
       } catch (error) {
         logger.error(error);
