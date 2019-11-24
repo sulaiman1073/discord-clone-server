@@ -29,19 +29,19 @@ if (config.mode === "development") {
 if (config.mode === "production") {
   app.set("trust proxy", "loopback");
 
-  app.use(
-    cors({
-      origin(origin, cb) {
-        const whitelist = config.corsOrigin ? config.corsOrigin.split(",") : [];
-        if (whitelist.indexOf(origin) !== -1) {
-          cb(null, true);
-        } else {
-          cb(new Error("Not allowed by CORS"));
-        }
-      },
-      credentials: true
-    })
-  );
+  // app.use(
+  //   cors({
+  //     origin(origin, cb) {
+  //       const whitelist = config.corsOrigin ? config.corsOrigin.split(",") : [];
+  //       if (whitelist.indexOf(origin) !== -1) {
+  //         cb(null, true);
+  //       } else {
+  //         cb(new Error("Not allowed by CORS"));
+  //       }
+  //     },
+  //     credentials: true
+  //   })
+  // );
 } else {
   app.use(cors());
 }
