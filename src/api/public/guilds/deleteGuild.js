@@ -5,10 +5,12 @@ const { invalidateCache } = require("../../../helpers/middleware/cache");
 const deleteGuild = require("../../../database/queries/deleteGuild");
 const { publisher } = require("../../../config/pubSub");
 const { GUILD_DELETE } = require("../../../config/constants");
+const authenticateUser = require("../../../helpers/middleware/authenticateUser");
 
 router.delete(
   "/:guildId",
-  invalidateCache,
+  authenticateUser,
+  // invalidateCache,
   celebrate({
     params: Joi.object()
       .keys({

@@ -10,9 +10,11 @@ const redis = require("../../../config/redis");
 const { publisher } = require("../../../config/pubSub");
 const { USER_UPDATE } = require("../../../config/constants");
 const state = require("../../../config/state");
+const authenticateUser = require("../../../helpers/middleware/authenticateUser");
 
 router.get(
   "/",
+  authenticateUser,
   // cache,
   celebrate({
     query: Joi.object()

@@ -1,8 +1,4 @@
 /* eslint-disable no-param-reassign */
-/* eslint-disable prefer-destructuring */
-/* eslint-disable no-loop-func */
-const authenticateUser = require("../helpers/middleware/authenticateUser");
-const { ApiError, DatabaseError } = require("../helpers/errors");
 const logger = require("../config/logger");
 const { subscriber } = require("../config/pubSub");
 const { HELLO, PING } = require("../config/constants");
@@ -20,7 +16,7 @@ module.exports = (app, wss) => {
     sender(wss, messageType, messagePayload);
   });
 
-  app.ws("/", async (ws, req) => {
+  app.ws("/ws", async (ws, req) => {
     try {
       if (!req.isAuthenticated()) {
         ws.terminate();
@@ -48,7 +44,7 @@ module.exports = (app, wss) => {
         })
       );
       logger.error(error);
-      // wss.disconnect()
+      ws.terminate();
     }
   });
 

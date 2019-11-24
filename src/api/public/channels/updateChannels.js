@@ -9,9 +9,11 @@ const updateChannel = require("../../../database/queries/updateChannel");
 const deleteChannel = require("../../../database/queries/deleteChannel");
 const { publisher } = require("../../../config/pubSub");
 const { CHANNELS_UPDATE } = require("../../../config/constants");
+const authenticateUser = require("../../../helpers/middleware/authenticateUser");
 
 router.put(
   "/",
+  authenticateUser,
   // invalidateCache,
   celebrate({
     body: Joi.object()

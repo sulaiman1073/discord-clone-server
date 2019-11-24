@@ -5,9 +5,11 @@ const { ApiError, DatabaseError } = require("../../../helpers/errors");
 const { publisher } = require("../../../config/pubSub");
 const { MEMBER_TYPING } = require("../../../config/constants");
 const state = require("../../../config/state");
+const authenticateUser = require("../../../helpers/middleware/authenticateUser");
 
 router.post(
   "/typing",
+  authenticateUser,
   celebrate({
     body: Joi.object()
       .keys({

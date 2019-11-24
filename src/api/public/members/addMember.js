@@ -9,9 +9,11 @@ const state = require("../../../config/state");
 const redis = require("../../../config/redis");
 const { publisher } = require("../../../config/pubSub");
 const { MEMBER_ADD } = require("../../../config/constants");
+const authenticateUser = require("../../../helpers/middleware/authenticateUser");
 
 router.post(
   "/",
+  authenticateUser,
   // invalidateCache,
   celebrate({
     body: Joi.object()

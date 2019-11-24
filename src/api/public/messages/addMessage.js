@@ -5,9 +5,11 @@ const { invalidateCache } = require("../../../helpers/middleware/cache");
 const addMessage = require("../../../database/queries/addMessage");
 const { publisher } = require("../../../config/pubSub");
 const { MESSAGE_ADD } = require("../../../config/constants");
+const authenticateUser = require("../../../helpers/middleware/authenticateUser");
 
 router.post(
   "/",
+  authenticateUser,
   // invalidateCache,
   celebrate({
     body: Joi.object()

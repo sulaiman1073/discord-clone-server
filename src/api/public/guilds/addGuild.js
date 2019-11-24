@@ -8,9 +8,11 @@ const getUser = require("../../../database/queries/getUser");
 const getChannelByGuildId = require("../../../database/queries/getChannelByGuildId");
 const state = require("../../../config/state");
 const redis = require("../../../config/redis");
+const authenticateUser = require("../../../helpers/middleware/authenticateUser");
 
 router.post(
   "/",
+  authenticateUser,
   // invalidateCache,
   celebrate({
     body: Joi.object()

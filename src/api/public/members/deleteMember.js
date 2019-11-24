@@ -7,10 +7,12 @@ const state = require("../../../config/state");
 const redis = require("../../../config/redis");
 const { publisher } = require("../../../config/pubSub");
 const { MEMBER_DELETE } = require("../../../config/constants");
+const authenticateUser = require("../../../helpers/middleware/authenticateUser");
 
 router.delete(
   "/:guildId",
-  invalidateCache,
+  authenticateUser,
+  // invalidateCache,
   celebrate({
     params: Joi.object()
       .keys({

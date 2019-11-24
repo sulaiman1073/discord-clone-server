@@ -3,10 +3,12 @@ const { celebrate, Joi } = require("celebrate");
 const { ApiError, DatabaseError } = require("../../../helpers/errors");
 const { cache } = require("../../../helpers/middleware/cache");
 const getMessages = require("../../../database/queries/getMessages");
+const authenticateUser = require("../../../helpers/middleware/authenticateUser");
 
 router.get(
   "/:channelId",
   // cache,
+  authenticateUser,
   celebrate({
     params: Joi.object()
       .keys({
