@@ -50,14 +50,22 @@ module.exports = (app, wss) => {
 
   setInterval(() => {
     wss.getWss().clients.forEach(client => {
-      if (client.isAlive === false) return client.terminate();
+      try {
+        if (client.isAlive === false) return client.terminate();
 
-      client.isAlive = false;
-      client.send(
-        JSON.stringify({
-          type: PING
-        })
-      );
+        client.isAlive = false;
+        if (client.readyState === 1) {
+          client.send(
+            JSON.stringify({
+              type: PING
+            })
+          );
+        } else {
+          client.terminate();
+        }
+      } catch (error) {
+        logger.error(error);
+      }
     });
   }, config.heartbeatInterval);
 };
